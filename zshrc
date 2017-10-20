@@ -72,6 +72,7 @@ alias vi=nvim
 alias npm=yarn
 
 # go
-GOPATH=$HOME/dev/go
+export GOPATH=$HOME/dev/go
+PATH=$PATH:$GOPATH/bin
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
