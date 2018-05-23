@@ -49,3 +49,9 @@ alias emacs=/usr/local/bin/emacsclient
 
 #miniconda
 export PATH=/Users/twexler/.miniconda3/bin:$PATH
+
+#kubeconfigs
+update_kubeconfigs() {
+  export KUBECONFIG="$(find $HOME/.kube/config.d -type f | tr '\n' ':')$HOME/.kube/config"
+}
+update_kubeconfigs
