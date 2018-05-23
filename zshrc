@@ -28,6 +28,9 @@ alias vim=nvim
 alias vi=nvim
 #alias npm=yarn
 
+#local bin folder
+PATH=$PATH:$HOME/.bin
+
 # go
 export GOPATH=$HOME/dev/go
 PATH=$PATH:$GOPATH/bin
