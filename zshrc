@@ -1,16 +1,29 @@
-source /usr/local/share/antigen/antigen.zsh
+source $HOME/.bin/zplug/init.zsh
 
 plugins=(autojump brew command-not-found docker git golang helm kubectl man pip ssh-agent vagrant vault vi-mode xcode yarn)
 
-antigen use oh-my-zsh
+for plugin in $plugins; do
+  zplug "plugins/${plugin}", from:oh-my-zsh
+done;
 
-for plugin in ${plugins}; do
-  antigen bundle $plugin
-done
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-syntax-highlighting"
 
-antigen theme robbyrussell
+# Load theme file
+# zplug 'themes/robbyrussell', from:oh-my-zsh, as:theme, defer:3
+zplug "denysdovhan/spaceship-prompt", as:theme, use:"spaceship.zsh"
 
-antigen apply
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load
 
 # User configuration
 
@@ -28,12 +41,14 @@ alias vim=nvim
 alias vi=nvim
 #alias npm=yarn
 
-#local bin folder
-PATH=$PATH:$HOME/.bin
 
 # go
 export GOPATH=$HOME/dev/go
 PATH=$PATH:$GOPATH/bin
+# goenv
+export GOENV_ROOT=$HOME/.goenv
+PATH=$PATH:$GOENV_ROOT/bin
+source <(goenv init -)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -55,3 +70,5 @@ update_kubeconfigs() {
   export KUBECONFIG="$(find $HOME/.kube/config.d -type f | tr '\n' ':')$HOME/.kube/config"
 }
 update_kubeconfigs
+
+source ~/.local/zshrc
