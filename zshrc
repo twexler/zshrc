@@ -14,6 +14,11 @@ zplug "zsh-users/zsh-syntax-highlighting"
 # zplug 'themes/robbyrussell', from:oh-my-zsh, as:theme, defer:3
 zplug "denysdovhan/spaceship-prompt", as:theme, use:"spaceship.zsh"
 
+# spaceship config
+SPACESHIP_PROMPT_ORDER=(time dir git golang docker venv kubecontext vi_mode jobs exit_code char)
+SPACESHIP_SEPARATE_LINE=false
+SPACESHIP_PROMPT_ADD_NEWLINE=false
+
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
@@ -29,17 +34,9 @@ zplug load
 
 export EDITOR='nvim'
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# Set personal aliases
 alias vim=nvim
 alias vi=nvim
-#alias npm=yarn
 
 
 # go
@@ -56,14 +53,11 @@ source <(goenv init -)
 alias python=python3
 alias pip=pip3
 
-# terraform version management
-source /usr/local/opt/chtf/share/chtf/chtf.sh
+# pip --user installed binaries
+PATH=$PATH:$HOME/.local/bin
 
 # spacemacs time
 alias emacs=/usr/local/bin/emacsclient
-
-#miniconda
-export PATH=/Users/twexler/.miniconda3/bin:$PATH
 
 #kubeconfigs
 update_kubeconfigs() {
@@ -75,5 +69,9 @@ update_kubeconfigs
 setopt inc_append_history
 # Reloads the history whenever you use it
 setopt share_history
+# zplug screws up history setup?
+export HISTFILE=~/.zsh_history
+export HISTSIZE=10000
+export SAVEHIST=10000
 
 source $HOME/.local/zshrc
