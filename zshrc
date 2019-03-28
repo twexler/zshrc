@@ -6,18 +6,17 @@ for plugin in $plugins; do
   zplug "plugins/${plugin}", from:oh-my-zsh
 done;
 
-zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting"
 
 # Load theme file
-# zplug 'themes/robbyrussell', from:oh-my-zsh, as:theme, defer:3
-zplug "denysdovhan/spaceship-prompt", as:theme, use:"spaceship.zsh"
+zplug 'themes/robbyrussell', from:oh-my-zsh, as:theme, defer:3
+# zplug "denysdovhan/spaceship-prompt", as:theme, use:"spaceship.zsh"
 
 # spaceship config
-SPACESHIP_PROMPT_ORDER=(time dir git golang docker venv kubecontext vi_mode jobs exit_code char)
-SPACESHIP_SEPARATE_LINE=false
-SPACESHIP_PROMPT_ADD_NEWLINE=false
+# SPACESHIP_PROMPT_ORDER=(time dir git golang docker venv kubecontext vi_mode jobs exit_code char)
+# SPACESHIP_SEPARATE_LINE=false
+# SPACESHIP_PROMPT_ADD_NEWLINE=false
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
