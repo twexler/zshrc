@@ -41,10 +41,6 @@ alias vi=nvim
 # go
 export GOPATH=$HOME/dev/go
 PATH=$PATH:$GOPATH/bin
-# goenv
-export GOENV_ROOT=$HOME/.goenv
-PATH=$PATH:$GOENV_ROOT/bin
-source <(goenv init -)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
