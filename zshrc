@@ -56,7 +56,7 @@ alias emacs=/usr/local/bin/emacsclient
 
 #kubeconfigs
 update_kubeconfigs() {
-  export KUBECONFIG="$(find $HOME/.kube/config.d -type f | tr '\n' ':')$HOME/.kube/config"
+  export KUBECONFIG="$(find $HOME/.kube/config.d -maxdepth 1 -type f | tr '\n' ':')$HOME/.kube/config"
 }
 update_kubeconfigs
 
