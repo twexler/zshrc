@@ -1,4 +1,4 @@
 My .zshrc
 =========
 
-Requires (oh-my-zsh)[https://github.com/robbyrussel/oh-my-zsh] and (zplug)[https://github.com/zplug/zplug]
+Uses [antidote](https://github.com/mattmc3/antidote) for plugin management

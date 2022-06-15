@@ -1,33 +1,13 @@
-source $HOME/.bin/zplug/init.zsh
+[[ -e ~/.cache/zsh ]] || mkdir ~/.cache/zsh
+export ZSH_CACHE_DIR=~/.cache/zsh
+# clone antidote if necessary
+[[ -e ~/.antidote ]] || git clone https://github.com/mattmc3/antidote.git ~/.antidote
 
-plugins=(autojump brew command-not-found docker git golang helm kubectl man pip ssh-agent vagrant vault vi-mode xcode yarn)
+# source antidote
+. ~/.antidote/antidote.zsh
 
-for plugin in $plugins; do
-  zplug "plugins/${plugin}", from:oh-my-zsh
-done;
-
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting"
-
-# Load theme file
-zplug 'themes/robbyrussell', from:oh-my-zsh, as:theme, defer:3
-# zplug "denysdovhan/spaceship-prompt", as:theme, use:"spaceship.zsh"
-
-# spaceship config
-# SPACESHIP_PROMPT_ORDER=(time dir git golang docker venv kubecontext vi_mode jobs exit_code char)
-# SPACESHIP_SEPARATE_LINE=false
-# SPACESHIP_PROMPT_ADD_NEWLINE=false
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-# Then, source plugins and add commands to $PATH
-zplug load
+# generate and source plugins from ~/.zsh_plugins.txt
+antidote load
 
 # User configuration
 
@@ -55,10 +35,10 @@ PATH=$PATH:$HOME/.local/bin
 alias emacs=/usr/local/bin/emacsclient
 
 #kubeconfigs
-update_kubeconfigs() {
-  export KUBECONFIG="$(find $HOME/.kube/config.d -maxdepth 1 -type f | tr '\n' ':')$HOME/.kube/config"
-}
-update_kubeconfigs
+# update_kubeconfigs() {
+#   export KUBECONFIG="$(find $HOME/.kube/config.d -maxdepth 1 -type f | tr '\n' ':')$HOME/.kube/config"
+# }
+# update_kubeconfigs
 
 # Appends every command to the history file once it is executed
 setopt inc_append_history
@@ -70,3 +50,14 @@ export HISTSIZE=10000
 export SAVEHIST=10000
 
 source $HOME/.local/zshrc
+# The following lines were added by compinstall
+
+
+autoload -Uz compinit
+compinit
+autoload -Uz +X bashcompinit && bashcompinit
+
+zstyle ':completion:*' completer _complete _ignored _approximate
+zstyle :compinstall filename '/Users/ted.wexler/.zshrc'
+fpath=(/usr/local/share/zsh-completions $fpath)
+# End of lines added by compinstall
