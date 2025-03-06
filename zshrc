@@ -50,14 +50,18 @@ export HISTSIZE=10000
 export SAVEHIST=10000
 
 source $HOME/.local/zshrc
-# The following lines were added by compinstall
 
+# The following lines were added by compinstall
+zstyle ':completion:*' completer _complete _ignored _approximate
+zstyle :compinstall filename '/Users/ted.wexler/.zshrc'
+export FPATH="/usr/local/share/zsh-completions:$FPATH"
+export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
 
 autoload -Uz compinit
 compinit
 autoload -Uz +X bashcompinit && bashcompinit
-
-zstyle ':completion:*' completer _complete _ignored _approximate
-zstyle :compinstall filename '/Users/ted.wexler/.zshrc'
-fpath=(/usr/local/share/zsh-completions $fpath)
 # End of lines added by compinstall
+
+# the day i can stop using `docker` will be a happy one
+export DOCKER_CLI_HINTS=false
+
